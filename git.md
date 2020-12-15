@@ -150,8 +150,7 @@ git switch -c dev
 <!-- 直接切换到已有的master分支，可以使用： -->
 git switch master
 
-<!-- Git鼓励大量使用分支89989898989898
-2323232：
+<!-- Git鼓励大量使用分支
 查看分支：git branch
 创建分支：git branch <name>
 切换分支：git checkout <name>或者git switch <name>
@@ -160,4 +159,3 @@ git switch master
 删除分支：git branch -d <name> -->
 
 <!-- 解决分支冲突 -->
-555555555555555555555555
