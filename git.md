@@ -206,3 +206,22 @@ git stash apply stash@{0}
 <!-- 修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
 当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场；
 在master分支上修复的bug，想要合并到当前dev分支，可以用git cherry-pick <commit>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。 -->
+
+<!-- Feature分支 -->
+<!-- 开发一个新feature，最好新建一个分支；
+如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。 -->
+git branch -D <name>
+
+<!-- 多人协作 -->
+<!-- 当你从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin。
+要查看远程库的信息，用git remote： -->
+git remote
+<!-- 或者，用git remote -v显示更详细的信息： 
+ git remote -v
+origin  git@github.com:michaelliao/learngit.git (fetch)
+origin  git@github.com:michaelliao/learngit.git (push)-->
+git remote -v
+
+<!-- 推送分支
+推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上： -->
+git push origin <name>
