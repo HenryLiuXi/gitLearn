@@ -282,3 +282,65 @@ git tag v0.9 f52c633
 git tag
 <!-- 注意，标签不是按时间顺序列出，而是按字母排序的。可以用git show <tagname>查看标签信息： -->
 git show v0.9
+<!-- 可以看到，v0.9确实打在add merge这次提交上。
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字： -->
+git tag -a v0.1 -m "version 0.1 released" 1094adb
+<!-- 用命令git show <tagname>可以看到说明文字： -->
+git show v1.0
+
+<!-- 小结
+命令git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+命令git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+命令git tag可以查看所有标签。 -->
+
+<!-- 操作标签
+如果标签打错了，也可以删除：git tag -d v1.0-->
+git tag -d v1.0
+<!-- 因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+如果要推送某个标签到远程，使用命令git push origin <tagname>： -->
+git push origin v1.0
+
+<!-- 一次性推送全部尚未推送到远程的本地标签： -->
+git push origin --tags
+
+<!-- 如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除： -->
+git tag -d v1.0
+<!-- 然后，从远程删除。删除命令也是push，但是格式如下： -->
+git push origin :refs/tags/v1.0
+<!-- 要看看是否真的从远程库删除了标签，可以登陆GitHub查看。 -->
+
+<!-- 小结
+命令git push origin <tagname>可以推送一个本地标签；
+命令git push origin --tags可以推送全部未推送过的本地标签；
+命令git tag -d <tagname>可以删除一个本地标签；
+命令git push origin :refs/tags/<tagname>可以删除一个远程标签。 -->
+
+<!-- 配置别名 -->
+<!-- 有没有经常敲错命令？比如git status？status这个单词真心不好记。
+如果敲git st就表示git status那就简单多了，当然这种偷懒的办法我们是极力赞成的。
+我们只需要敲一行命令，告诉Git，以后st就表示status： -->
+
+git config --global alias.st status
+<!-- 好了，现在敲git st看看效果。 -->
+git st
+
+<!-- 当然还有别的命令可以简写，很多人都用co表示checkout，ci表示commit，br表示branch： -->
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.br branch
+<!-- --global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用。 -->
+
+<!-- 在撤销修改一节中，我们知道，命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区。既然是一个unstage操作，就可以配置一个unstage别名： -->
+git config --global alias.unstage 'reset HEAD'
+<!-- 当你敲入命令： -->
+git unstage test.md
+<!-- 实际上git执行的是 -->
+git reset HEAD test.md
+
+<!-- 配置一个git last，让其显示最后一次提交信息： -->
+git config --global alias.last 'log -1'
+<!-- 这样，用git last就能显示最近一次的提交： -->
+git last
+
+<!-- 甚至还有人丧心病狂地把lg配置成了： -->
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
