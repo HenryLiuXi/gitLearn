@@ -177,6 +177,21 @@ git switch master
 <!-- Git分支十分强大，在团队开发中应该充分应用。
 合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。 -->
 
+<!-- Bug分支
 
+并不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需1天时间。但是，必须在两个小时内修复该bug，怎么办？
+幸好，Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作： -->
 git stash
-Saved working directory and index state WIP on dev: f52c633 add merge
+<!-- 现在，用git status查看工作区，就是干净的（除非有没有被Git管理的文件），因此可以放心地创建分支来修复bug。 -->
+
+<!-- 工作区是干净的，刚才的工作现场存到哪去了？用git stash list命令看看： -->
+git stash list
+
+<!-- 工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下，有两个办法：
+一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+另一种方式是用git stash pop，恢复的同时把stash内容也删了： -->
+<!-- 再用git stash list查看，就看不到任何stash内容了： -->
+<!-- 你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令： 
+stash@{0}为stash的哪一个
+-->
+git stash apply stash@{0}
